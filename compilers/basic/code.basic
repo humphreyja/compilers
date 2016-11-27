@@ -1,0 +1,11 @@
+1 LET n$ = 10
+10 IF n$ = 1 THEN 41
+20 PRINT "The Number is: "; n$
+30 INPUT "Enter a new number: "; n$
+40 GOTO 10
+41 FOR j$ = 1 TO 2
+60 FOR k$ = 1 TO 5
+70 PRINT "Out: "; k$; " of "; j$
+80 NEXT
+81 NEXT
+90 PRINT "The End"
