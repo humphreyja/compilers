@@ -1,7 +1,10 @@
 To run, install elixir (`brew install elixir`).
 Then run `./basic` to start the pre-compiled version
-If you wish to compile your own version, run with `mix escript.build`
-To run from the shell, start iex with `iex -S mix` then execute the test file with `ExTokens.test`
+If you wish to compile your own version, build it with `mix escript.build`
+
+By default, it will use `code.basic` as the source code, you may pass in a file
+as an argument if you want to run a different file.  See the provided screenshot
+to see a sample run.
 
 ## Syntax
 It is in BASIC syntax though is very minimal and works more like an interpreter/translator to Elixir.

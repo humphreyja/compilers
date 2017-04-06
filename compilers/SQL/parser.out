@@ -1,0 +1,742 @@
+Created by PLY version 3.9 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    INSERT
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> statement SEMI
+Rule 2     statement -> SELECT fields FROM table where_opts group_by_opts order_by_opts limit_opts
+Rule 3     fields -> fields COMMA field
+Rule 4     fields -> field
+Rule 5     field -> WILD
+Rule 6     field -> COUNT LPAREN ID RPAREN
+Rule 7     field -> COUNT LPAREN WILD RPAREN
+Rule 8     field -> COUNT LPAREN ID RPAREN AS ID
+Rule 9     field -> COUNT LPAREN WILD RPAREN AS ID
+Rule 10    field -> ID
+Rule 11    field -> ID AS ID
+Rule 12    table -> ID
+Rule 13    where_opts -> WHERE equalities
+Rule 14    where_opts -> <empty>
+Rule 15    order_by_opts -> ORDER_BY ID
+Rule 16    order_by_opts -> ORDER_BY DIRECTION ID
+Rule 17    order_by_opts -> <empty>
+Rule 18    group_by_opts -> <empty>
+Rule 19    limit_opts -> LIMIT INT
+Rule 20    limit_opts -> <empty>
+Rule 21    equalities -> equalities AND equality
+Rule 22    equalities -> equalities OR equality
+Rule 23    equalities -> equality
+Rule 24    equality -> value EQUALS value
+Rule 25    equality -> value NE value
+Rule 26    equality -> value GT value
+Rule 27    equality -> value LT value
+Rule 28    equality -> value GE value
+Rule 29    equality -> value LE value
+Rule 30    value -> INT
+Rule 31    value -> STRING
+Rule 32    value -> ID
+
+Terminals, with rules where they appear
+
+AND                  : 21
+AS                   : 8 9 11
+COMMA                : 3
+COUNT                : 6 7 8 9
+DIRECTION            : 16
+EQUALS               : 24
+FROM                 : 2
+GE                   : 28
+GT                   : 26
+ID                   : 6 8 8 9 10 11 11 12 15 16 32
+INSERT               : 
+INT                  : 19 30
+LE                   : 29
+LIMIT                : 19
+LPAREN               : 6 7 8 9
+LT                   : 27
+NE                   : 25
+OR                   : 22
+ORDER_BY             : 15 16
+RPAREN               : 6 7 8 9
+SELECT               : 2
+SEMI                 : 1
+STRING               : 31
+WHERE                : 13
+WILD                 : 5 7 9
+error                : 
+
+Nonterminals, with rules where they appear
+
+equalities           : 13 21 22
+equality             : 21 22 23
+field                : 3 4
+fields               : 2 3
+group_by_opts        : 2
+limit_opts           : 2
+order_by_opts        : 2
+program              : 0
+statement            : 1
+table                : 2
+value                : 24 24 25 25 26 26 27 27 28 28 29 29
+where_opts           : 2
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . statement SEMI
+    (2) statement -> . SELECT fields FROM table where_opts group_by_opts order_by_opts limit_opts
+
+    SELECT          shift and go to state 3
+
+    program                        shift and go to state 1
+    statement                      shift and go to state 2
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> statement . SEMI
+
+    SEMI            shift and go to state 4
+
+
+state 3
+
+    (2) statement -> SELECT . fields FROM table where_opts group_by_opts order_by_opts limit_opts
+    (3) fields -> . fields COMMA field
+    (4) fields -> . field
+    (5) field -> . WILD
+    (6) field -> . COUNT LPAREN ID RPAREN
+    (7) field -> . COUNT LPAREN WILD RPAREN
+    (8) field -> . COUNT LPAREN ID RPAREN AS ID
+    (9) field -> . COUNT LPAREN WILD RPAREN AS ID
+    (10) field -> . ID
+    (11) field -> . ID AS ID
+
+    WILD            shift and go to state 8
+    COUNT           shift and go to state 5
+    ID              shift and go to state 9
+
+    fields                         shift and go to state 6
+    field                          shift and go to state 7
+
+state 4
+
+    (1) program -> statement SEMI .
+
+    $end            reduce using rule 1 (program -> statement SEMI .)
+
+
+state 5
+
+    (6) field -> COUNT . LPAREN ID RPAREN
+    (7) field -> COUNT . LPAREN WILD RPAREN
+    (8) field -> COUNT . LPAREN ID RPAREN AS ID
+    (9) field -> COUNT . LPAREN WILD RPAREN AS ID
+
+    LPAREN          shift and go to state 10
+
+
+state 6
+
+    (2) statement -> SELECT fields . FROM table where_opts group_by_opts order_by_opts limit_opts
+    (3) fields -> fields . COMMA field
+
+    FROM            shift and go to state 11
+    COMMA           shift and go to state 12
+
+
+state 7
+
+    (4) fields -> field .
+
+    FROM            reduce using rule 4 (fields -> field .)
+    COMMA           reduce using rule 4 (fields -> field .)
+
+
+state 8
+
+    (5) field -> WILD .
+
+    FROM            reduce using rule 5 (field -> WILD .)
+    COMMA           reduce using rule 5 (field -> WILD .)
+
+
+state 9
+
+    (10) field -> ID .
+    (11) field -> ID . AS ID
+
+    FROM            reduce using rule 10 (field -> ID .)
+    COMMA           reduce using rule 10 (field -> ID .)
+    AS              shift and go to state 13
+
+
+state 10
+
+    (6) field -> COUNT LPAREN . ID RPAREN
+    (7) field -> COUNT LPAREN . WILD RPAREN
+    (8) field -> COUNT LPAREN . ID RPAREN AS ID
+    (9) field -> COUNT LPAREN . WILD RPAREN AS ID
+
+    ID              shift and go to state 15
+    WILD            shift and go to state 14
+
+
+state 11
+
+    (2) statement -> SELECT fields FROM . table where_opts group_by_opts order_by_opts limit_opts
+    (12) table -> . ID
+
+    ID              shift and go to state 17
+
+    table                          shift and go to state 16
+
+state 12
+
+    (3) fields -> fields COMMA . field
+    (5) field -> . WILD
+    (6) field -> . COUNT LPAREN ID RPAREN
+    (7) field -> . COUNT LPAREN WILD RPAREN
+    (8) field -> . COUNT LPAREN ID RPAREN AS ID
+    (9) field -> . COUNT LPAREN WILD RPAREN AS ID
+    (10) field -> . ID
+    (11) field -> . ID AS ID
+
+    WILD            shift and go to state 8
+    COUNT           shift and go to state 5
+    ID              shift and go to state 9
+
+    field                          shift and go to state 18
+
+state 13
+
+    (11) field -> ID AS . ID
+
+    ID              shift and go to state 19
+
+
+state 14
+
+    (7) field -> COUNT LPAREN WILD . RPAREN
+    (9) field -> COUNT LPAREN WILD . RPAREN AS ID
+
+    RPAREN          shift and go to state 20
+
+
+state 15
+
+    (6) field -> COUNT LPAREN ID . RPAREN
+    (8) field -> COUNT LPAREN ID . RPAREN AS ID
+
+    RPAREN          shift and go to state 21
+
+
+state 16
+
+    (2) statement -> SELECT fields FROM table . where_opts group_by_opts order_by_opts limit_opts
+    (13) where_opts -> . WHERE equalities
+    (14) where_opts -> .
+
+    WHERE           shift and go to state 23
+    ORDER_BY        reduce using rule 14 (where_opts -> .)
+    LIMIT           reduce using rule 14 (where_opts -> .)
+    SEMI            reduce using rule 14 (where_opts -> .)
+
+    where_opts                     shift and go to state 22
+
+state 17
+
+    (12) table -> ID .
+
+    WHERE           reduce using rule 12 (table -> ID .)
+    ORDER_BY        reduce using rule 12 (table -> ID .)
+    LIMIT           reduce using rule 12 (table -> ID .)
+    SEMI            reduce using rule 12 (table -> ID .)
+
+
+state 18
+
+    (3) fields -> fields COMMA field .
+
+    FROM            reduce using rule 3 (fields -> fields COMMA field .)
+    COMMA           reduce using rule 3 (fields -> fields COMMA field .)
+
+
+state 19
+
+    (11) field -> ID AS ID .
+
+    FROM            reduce using rule 11 (field -> ID AS ID .)
+    COMMA           reduce using rule 11 (field -> ID AS ID .)
+
+
+state 20
+
+    (7) field -> COUNT LPAREN WILD RPAREN .
+    (9) field -> COUNT LPAREN WILD RPAREN . AS ID
+
+    FROM            reduce using rule 7 (field -> COUNT LPAREN WILD RPAREN .)
+    COMMA           reduce using rule 7 (field -> COUNT LPAREN WILD RPAREN .)
+    AS              shift and go to state 24
+
+
+state 21
+
+    (6) field -> COUNT LPAREN ID RPAREN .
+    (8) field -> COUNT LPAREN ID RPAREN . AS ID
+
+    FROM            reduce using rule 6 (field -> COUNT LPAREN ID RPAREN .)
+    COMMA           reduce using rule 6 (field -> COUNT LPAREN ID RPAREN .)
+    AS              shift and go to state 25
+
+
+state 22
+
+    (2) statement -> SELECT fields FROM table where_opts . group_by_opts order_by_opts limit_opts
+    (18) group_by_opts -> .
+
+    ORDER_BY        reduce using rule 18 (group_by_opts -> .)
+    LIMIT           reduce using rule 18 (group_by_opts -> .)
+    SEMI            reduce using rule 18 (group_by_opts -> .)
+
+    group_by_opts                  shift and go to state 26
+
+state 23
+
+    (13) where_opts -> WHERE . equalities
+    (21) equalities -> . equalities AND equality
+    (22) equalities -> . equalities OR equality
+    (23) equalities -> . equality
+    (24) equality -> . value EQUALS value
+    (25) equality -> . value NE value
+    (26) equality -> . value GT value
+    (27) equality -> . value LT value
+    (28) equality -> . value GE value
+    (29) equality -> . value LE value
+    (30) value -> . INT
+    (31) value -> . STRING
+    (32) value -> . ID
+
+    INT             shift and go to state 29
+    STRING          shift and go to state 28
+    ID              shift and go to state 32
+
+    equalities                     shift and go to state 30
+    equality                       shift and go to state 27
+    value                          shift and go to state 31
+
+state 24
+
+    (9) field -> COUNT LPAREN WILD RPAREN AS . ID
+
+    ID              shift and go to state 33
+
+
+state 25
+
+    (8) field -> COUNT LPAREN ID RPAREN AS . ID
+
+    ID              shift and go to state 34
+
+
+state 26
+
+    (2) statement -> SELECT fields FROM table where_opts group_by_opts . order_by_opts limit_opts
+    (15) order_by_opts -> . ORDER_BY ID
+    (16) order_by_opts -> . ORDER_BY DIRECTION ID
+    (17) order_by_opts -> .
+
+    ORDER_BY        shift and go to state 36
+    LIMIT           reduce using rule 17 (order_by_opts -> .)
+    SEMI            reduce using rule 17 (order_by_opts -> .)
+
+    order_by_opts                  shift and go to state 35
+
+state 27
+
+    (23) equalities -> equality .
+
+    AND             reduce using rule 23 (equalities -> equality .)
+    OR              reduce using rule 23 (equalities -> equality .)
+    ORDER_BY        reduce using rule 23 (equalities -> equality .)
+    LIMIT           reduce using rule 23 (equalities -> equality .)
+    SEMI            reduce using rule 23 (equalities -> equality .)
+
+
+state 28
+
+    (31) value -> STRING .
+
+    AND             reduce using rule 31 (value -> STRING .)
+    OR              reduce using rule 31 (value -> STRING .)
+    ORDER_BY        reduce using rule 31 (value -> STRING .)
+    LIMIT           reduce using rule 31 (value -> STRING .)
+    SEMI            reduce using rule 31 (value -> STRING .)
+    EQUALS          reduce using rule 31 (value -> STRING .)
+    NE              reduce using rule 31 (value -> STRING .)
+    GT              reduce using rule 31 (value -> STRING .)
+    LT              reduce using rule 31 (value -> STRING .)
+    GE              reduce using rule 31 (value -> STRING .)
+    LE              reduce using rule 31 (value -> STRING .)
+
+
+state 29
+
+    (30) value -> INT .
+
+    AND             reduce using rule 30 (value -> INT .)
+    OR              reduce using rule 30 (value -> INT .)
+    ORDER_BY        reduce using rule 30 (value -> INT .)
+    LIMIT           reduce using rule 30 (value -> INT .)
+    SEMI            reduce using rule 30 (value -> INT .)
+    EQUALS          reduce using rule 30 (value -> INT .)
+    NE              reduce using rule 30 (value -> INT .)
+    GT              reduce using rule 30 (value -> INT .)
+    LT              reduce using rule 30 (value -> INT .)
+    GE              reduce using rule 30 (value -> INT .)
+    LE              reduce using rule 30 (value -> INT .)
+
+
+state 30
+
+    (13) where_opts -> WHERE equalities .
+    (21) equalities -> equalities . AND equality
+    (22) equalities -> equalities . OR equality
+
+    ORDER_BY        reduce using rule 13 (where_opts -> WHERE equalities .)
+    LIMIT           reduce using rule 13 (where_opts -> WHERE equalities .)
+    SEMI            reduce using rule 13 (where_opts -> WHERE equalities .)
+    AND             shift and go to state 37
+    OR              shift and go to state 38
+
+
+state 31
+
+    (24) equality -> value . EQUALS value
+    (25) equality -> value . NE value
+    (26) equality -> value . GT value
+    (27) equality -> value . LT value
+    (28) equality -> value . GE value
+    (29) equality -> value . LE value
+
+    EQUALS          shift and go to state 42
+    NE              shift and go to state 40
+    GT              shift and go to state 39
+    LT              shift and go to state 43
+    GE              shift and go to state 41
+    LE              shift and go to state 44
+
+
+state 32
+
+    (32) value -> ID .
+
+    AND             reduce using rule 32 (value -> ID .)
+    OR              reduce using rule 32 (value -> ID .)
+    ORDER_BY        reduce using rule 32 (value -> ID .)
+    LIMIT           reduce using rule 32 (value -> ID .)
+    SEMI            reduce using rule 32 (value -> ID .)
+    EQUALS          reduce using rule 32 (value -> ID .)
+    NE              reduce using rule 32 (value -> ID .)
+    GT              reduce using rule 32 (value -> ID .)
+    LT              reduce using rule 32 (value -> ID .)
+    GE              reduce using rule 32 (value -> ID .)
+    LE              reduce using rule 32 (value -> ID .)
+
+
+state 33
+
+    (9) field -> COUNT LPAREN WILD RPAREN AS ID .
+
+    FROM            reduce using rule 9 (field -> COUNT LPAREN WILD RPAREN AS ID .)
+    COMMA           reduce using rule 9 (field -> COUNT LPAREN WILD RPAREN AS ID .)
+
+
+state 34
+
+    (8) field -> COUNT LPAREN ID RPAREN AS ID .
+
+    FROM            reduce using rule 8 (field -> COUNT LPAREN ID RPAREN AS ID .)
+    COMMA           reduce using rule 8 (field -> COUNT LPAREN ID RPAREN AS ID .)
+
+
+state 35
+
+    (2) statement -> SELECT fields FROM table where_opts group_by_opts order_by_opts . limit_opts
+    (19) limit_opts -> . LIMIT INT
+    (20) limit_opts -> .
+
+    LIMIT           shift and go to state 46
+    SEMI            reduce using rule 20 (limit_opts -> .)
+
+    limit_opts                     shift and go to state 45
+
+state 36
+
+    (15) order_by_opts -> ORDER_BY . ID
+    (16) order_by_opts -> ORDER_BY . DIRECTION ID
+
+    ID              shift and go to state 48
+    DIRECTION       shift and go to state 47
+
+
+state 37
+
+    (21) equalities -> equalities AND . equality
+    (24) equality -> . value EQUALS value
+    (25) equality -> . value NE value
+    (26) equality -> . value GT value
+    (27) equality -> . value LT value
+    (28) equality -> . value GE value
+    (29) equality -> . value LE value
+    (30) value -> . INT
+    (31) value -> . STRING
+    (32) value -> . ID
+
+    INT             shift and go to state 29
+    STRING          shift and go to state 28
+    ID              shift and go to state 32
+
+    equality                       shift and go to state 49
+    value                          shift and go to state 31
+
+state 38
+
+    (22) equalities -> equalities OR . equality
+    (24) equality -> . value EQUALS value
+    (25) equality -> . value NE value
+    (26) equality -> . value GT value
+    (27) equality -> . value LT value
+    (28) equality -> . value GE value
+    (29) equality -> . value LE value
+    (30) value -> . INT
+    (31) value -> . STRING
+    (32) value -> . ID
+
+    INT             shift and go to state 29
+    STRING          shift and go to state 28
+    ID              shift and go to state 32
+
+    equality                       shift and go to state 50
+    value                          shift and go to state 31
+
+state 39
+
+    (26) equality -> value GT . value
+    (30) value -> . INT
+    (31) value -> . STRING
+    (32) value -> . ID
+
+    INT             shift and go to state 29
+    STRING          shift and go to state 28
+    ID              shift and go to state 32
+
+    value                          shift and go to state 51
+
+state 40
+
+    (25) equality -> value NE . value
+    (30) value -> . INT
+    (31) value -> . STRING
+    (32) value -> . ID
+
+    INT             shift and go to state 29
+    STRING          shift and go to state 28
+    ID              shift and go to state 32
+
+    value                          shift and go to state 52
+
+state 41
+
+    (28) equality -> value GE . value
+    (30) value -> . INT
+    (31) value -> . STRING
+    (32) value -> . ID
+
+    INT             shift and go to state 29
+    STRING          shift and go to state 28
+    ID              shift and go to state 32
+
+    value                          shift and go to state 53
+
+state 42
+
+    (24) equality -> value EQUALS . value
+    (30) value -> . INT
+    (31) value -> . STRING
+    (32) value -> . ID
+
+    INT             shift and go to state 29
+    STRING          shift and go to state 28
+    ID              shift and go to state 32
+
+    value                          shift and go to state 54
+
+state 43
+
+    (27) equality -> value LT . value
+    (30) value -> . INT
+    (31) value -> . STRING
+    (32) value -> . ID
+
+    INT             shift and go to state 29
+    STRING          shift and go to state 28
+    ID              shift and go to state 32
+
+    value                          shift and go to state 55
+
+state 44
+
+    (29) equality -> value LE . value
+    (30) value -> . INT
+    (31) value -> . STRING
+    (32) value -> . ID
+
+    INT             shift and go to state 29
+    STRING          shift and go to state 28
+    ID              shift and go to state 32
+
+    value                          shift and go to state 56
+
+state 45
+
+    (2) statement -> SELECT fields FROM table where_opts group_by_opts order_by_opts limit_opts .
+
+    SEMI            reduce using rule 2 (statement -> SELECT fields FROM table where_opts group_by_opts order_by_opts limit_opts .)
+
+
+state 46
+
+    (19) limit_opts -> LIMIT . INT
+
+    INT             shift and go to state 57
+
+
+state 47
+
+    (16) order_by_opts -> ORDER_BY DIRECTION . ID
+
+    ID              shift and go to state 58
+
+
+state 48
+
+    (15) order_by_opts -> ORDER_BY ID .
+
+    LIMIT           reduce using rule 15 (order_by_opts -> ORDER_BY ID .)
+    SEMI            reduce using rule 15 (order_by_opts -> ORDER_BY ID .)
+
+
+state 49
+
+    (21) equalities -> equalities AND equality .
+
+    AND             reduce using rule 21 (equalities -> equalities AND equality .)
+    OR              reduce using rule 21 (equalities -> equalities AND equality .)
+    ORDER_BY        reduce using rule 21 (equalities -> equalities AND equality .)
+    LIMIT           reduce using rule 21 (equalities -> equalities AND equality .)
+    SEMI            reduce using rule 21 (equalities -> equalities AND equality .)
+
+
+state 50
+
+    (22) equalities -> equalities OR equality .
+
+    AND             reduce using rule 22 (equalities -> equalities OR equality .)
+    OR              reduce using rule 22 (equalities -> equalities OR equality .)
+    ORDER_BY        reduce using rule 22 (equalities -> equalities OR equality .)
+    LIMIT           reduce using rule 22 (equalities -> equalities OR equality .)
+    SEMI            reduce using rule 22 (equalities -> equalities OR equality .)
+
+
+state 51
+
+    (26) equality -> value GT value .
+
+    AND             reduce using rule 26 (equality -> value GT value .)
+    OR              reduce using rule 26 (equality -> value GT value .)
+    ORDER_BY        reduce using rule 26 (equality -> value GT value .)
+    LIMIT           reduce using rule 26 (equality -> value GT value .)
+    SEMI            reduce using rule 26 (equality -> value GT value .)
+
+
+state 52
+
+    (25) equality -> value NE value .
+
+    AND             reduce using rule 25 (equality -> value NE value .)
+    OR              reduce using rule 25 (equality -> value NE value .)
+    ORDER_BY        reduce using rule 25 (equality -> value NE value .)
+    LIMIT           reduce using rule 25 (equality -> value NE value .)
+    SEMI            reduce using rule 25 (equality -> value NE value .)
+
+
+state 53
+
+    (28) equality -> value GE value .
+
+    AND             reduce using rule 28 (equality -> value GE value .)
+    OR              reduce using rule 28 (equality -> value GE value .)
+    ORDER_BY        reduce using rule 28 (equality -> value GE value .)
+    LIMIT           reduce using rule 28 (equality -> value GE value .)
+    SEMI            reduce using rule 28 (equality -> value GE value .)
+
+
+state 54
+
+    (24) equality -> value EQUALS value .
+
+    AND             reduce using rule 24 (equality -> value EQUALS value .)
+    OR              reduce using rule 24 (equality -> value EQUALS value .)
+    ORDER_BY        reduce using rule 24 (equality -> value EQUALS value .)
+    LIMIT           reduce using rule 24 (equality -> value EQUALS value .)
+    SEMI            reduce using rule 24 (equality -> value EQUALS value .)
+
+
+state 55
+
+    (27) equality -> value LT value .
+
+    AND             reduce using rule 27 (equality -> value LT value .)
+    OR              reduce using rule 27 (equality -> value LT value .)
+    ORDER_BY        reduce using rule 27 (equality -> value LT value .)
+    LIMIT           reduce using rule 27 (equality -> value LT value .)
+    SEMI            reduce using rule 27 (equality -> value LT value .)
+
+
+state 56
+
+    (29) equality -> value LE value .
+
+    AND             reduce using rule 29 (equality -> value LE value .)
+    OR              reduce using rule 29 (equality -> value LE value .)
+    ORDER_BY        reduce using rule 29 (equality -> value LE value .)
+    LIMIT           reduce using rule 29 (equality -> value LE value .)
+    SEMI            reduce using rule 29 (equality -> value LE value .)
+
+
+state 57
+
+    (19) limit_opts -> LIMIT INT .
+
+    SEMI            reduce using rule 19 (limit_opts -> LIMIT INT .)
+
+
+state 58
+
+    (16) order_by_opts -> ORDER_BY DIRECTION ID .
+
+    LIMIT           reduce using rule 16 (order_by_opts -> ORDER_BY DIRECTION ID .)
+    SEMI            reduce using rule 16 (order_by_opts -> ORDER_BY DIRECTION ID .)
+
