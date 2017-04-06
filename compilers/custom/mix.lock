@@ -1,0 +1,2 @@
+%{"apex": {:hex, :apex, "0.5.2", "bc4d44c3f824d70cd295fc2fd395243df34a1c1659f5ef17381f5fbee1c7f00e", [:mix], []},
+  "llevm": {:git, "https://github.com/garazdawi/llevm.git", "66f2d9fd122d4bdcaa2ce31afbec64152c746132", []}}

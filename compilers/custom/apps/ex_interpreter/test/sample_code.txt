@@ -1,0 +1,9 @@
+class Integer() {
+  int value
+
+  int newVal = 1;
+
+  int construct(){
+    
+  }
+}
